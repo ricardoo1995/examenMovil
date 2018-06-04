@@ -38,20 +38,20 @@ class DbHandlerAplicacion(context: Context): SQLiteOpenHelper(context,BaseDeDato
     override fun onCreate(db: SQLiteDatabase?) {
         val createTablePaciente = "CREATE TABLE ${BaseDeDatos.BDD_TABLA_USUARIO_NOMBRE} " +
                 "(${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NOMBRE} VARCHAR(50))" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_Apellido} VARCHAR(50))" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_FechaNaciento} VARCHAR(50))" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_Hijos} INTEGER)" +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NOMBRE} VARCHAR(50)," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_Apellido} VARCHAR(50)," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_FechaNaciento} VARCHAR(50)," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_Hijos} INTEGER," +
                 "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_TieneSeguro} BOOLEAN)"
 
         val createTableSQLMedicina = "CREATE TABLE ${BaseDeDatos.BDD_TABLA_USUARIO_NOMBRETABLA} " +
                 "(${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_ID_Medicina} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_GRAMOSINGERIR} DOUBLE)" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NOMBREMEDICINA} VARCHAR(50))" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_COMPOSION} VARCHAR(50))" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_USADOPARA} INTEGER)" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NUMEROPASTILLAS} INTEGER)" +
-                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_ID} FOREIGN KEY)"
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_GRAMOSINGERIR} DOUBLE," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NOMBREMEDICINA} VARCHAR(50)," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_COMPOSION} VARCHAR(50)," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_USADOPARA} INTEGER," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_NUMEROPASTILLAS} INTEGER," +
+                "${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_ID} INTEGER)"
 
         db?.execSQL(createTablePaciente)
         db?.execSQL(createTableSQLMedicina)
@@ -114,6 +114,22 @@ class DbHandlerAplicacion(context: Context): SQLiteOpenHelper(context,BaseDeDato
 
         val dbReadable = readableDatabase
         val query = "SELECT * FROM ${BaseDeDatos.BDD_TABLA_USUARIO_NOMBRE}"
+        val resultado = dbReadable.rawQuery(query,null)
+
+        if (resultado.moveToFirst()) {
+            do {
+                val nombreActual = resultado.getString(0)
+                val hijos = resultado.getString(1).toInt()
+                Log.i("database", "El nombre es $nombreActual tiene $hijos")
+            } while (resultado.moveToNext())
+        }
+        resultado.close()
+        dbReadable.close()
+    }
+
+    fun eliminar(){
+        val dbReadable = readableDatabase
+        val query = "DELETE ${BaseDeDatos.BDD_TABLA_USUARIO_CAMPO_Apellido} FROM ${BaseDeDatos.BDD_TABLA_USUARIO_NOMBRE}  "
         val resultado = dbReadable.rawQuery(query,null)
 
         if (resultado.moveToFirst()) {

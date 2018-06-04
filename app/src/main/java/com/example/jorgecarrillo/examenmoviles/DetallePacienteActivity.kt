@@ -13,10 +13,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.PopupMenu
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_detalle_paciente.*
 import java.util.*
 
@@ -40,6 +37,15 @@ class DetallePacienteActivity : AppCompatActivity() {
         var intent = Intent(this,CrearMedicinaActivity::class.java)
         startActivity(intent)
     }
+    fun enviarCorreo() {
+        val addressees = arrayOf("direccion@uno.com", "direccion@dos.com")
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/html"
+        intent.putExtra(Intent.EXTRA_EMAIL, addressees)
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Sujeto")
+        intent.putExtra(Intent.EXTRA_TEXT, "Texto.")
+        startActivity(intent)
+    }
 }
 
 class Medicina(var gramosAConsumir: String,
@@ -57,8 +63,8 @@ class CrearMedicina(){
         var medicina: ArrayList<Medicina> = ArrayList()
 
         init {
-            medicina.add(Medicina("1.1","1","algo1","usrl1", Date(),"1.1","1"))
-            medicina.add(Medicina("1.2","2","algo2","usrl2", Date(),"2.1","2"))
+            medicina.add(Medicina("1.1","sds","finalin","dolor de cabeza", Date(),"1","1"))
+            medicina.add(Medicina("1.2","2","alergin","alergia", Date(),"2","2"))
         }
     }
 }
@@ -68,16 +74,26 @@ class AplicacionAdaptador(private val listaAplicaciones: List<Medicina>): Recycl
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.getItemId()) {
-            R.id.item_menu_aceptar -> {
+            R.id.item_menu_editar -> {
                 Log.i("menu", "Editar")
+
                 return true
             }
-            R.id.item_menu_cancelar -> {
+            R.id.item_menu_eliminar -> {
                 Log.i("menu", "Eliminar")
                 return true
             }
             R.id.item_menu_correo -> {
                 Log.i("menu", "Correo")
+                fun enviarCorreo() {
+                    val addressees = arrayOf("direccion@uno.com", "direccion@dos.com")
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "text/html"
+                    intent.putExtra(Intent.EXTRA_EMAIL, addressees)
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Sujeto")
+                    intent.putExtra(Intent.EXTRA_TEXT, "Texto.")
+                    intent
+                }
                 return true
             }
             else -> {
@@ -85,6 +101,7 @@ class AplicacionAdaptador(private val listaAplicaciones: List<Medicina>): Recycl
                 return false
             }
         }
+
     }
 
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view){

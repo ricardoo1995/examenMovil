@@ -38,7 +38,7 @@ class ListarPacienteActivity : AppCompatActivity() {
 
 
 class Paciente1(var nombre:String,
-                var apellido:Int,
+                var apellido:String,
                 var fechaNacimiento: Date,
                 var hijos:Int,
                 var afiliado:Boolean){}
@@ -49,8 +49,8 @@ class CrearPaciente(){
         var pacientelista: ArrayList<Paciente1> = ArrayList()
 
         init {
-            pacientelista.add(Paciente1("algo1",1, Date(),1,true))
-            pacientelista.add(Paciente1("algo2",2, Date(),0,false))
+            pacientelista.add(Paciente1("JORGE ","Carrillo", Date(),1,true))
+            pacientelista.add(Paciente1("Luis ","Carrillo", Date(),0,false))
         }
     }
 }
@@ -60,11 +60,11 @@ class SistemaOperativoAdaptador(private val listaSistema: List<Paciente1>): Recy
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.getItemId()) {
-            R.id.item_menu_aceptar -> {
+            R.id.item_menu_editar -> {
                 Log.i("menu", "Editar")
                 return true
             }
-            R.id.item_menu_cancelar -> {
+            R.id.item_menu_eliminar -> {
                 Log.i("menu", "Eliminar")
                 return true
             }

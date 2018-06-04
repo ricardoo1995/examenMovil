@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     apellido: String,
                     fechaNacimeinto: String,
                     hijos:Int,
-                    afiliado:Boolean)= dbHandler.insertarPaciente(nombre,apellido,fechaNacimeinto,hijos,afiliado)
+                    seguro:Boolean)= dbHandler.insertarPaciente(nombre,apellido,fechaNacimeinto,hijos,seguro)
 
         fun crearMedicina(cantidadIngerir: Double,
                      nombre: String,
