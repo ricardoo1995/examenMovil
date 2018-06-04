@@ -1,14 +1,10 @@
-package com.example.marcelo.mn_moviles_examen_1b
+package com.example.jorgecarrillo.examenmoviles
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -17,20 +13,21 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import kotlinx.android.synthetic.main.activity_listar_so.*
+import android.widget.Button
+import android.widget.PopupMenu
+import android.widget.RelativeLayout
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_listar_paciente.*
 import java.util.*
 
-class ListarSOActivity : AppCompatActivity() {
-
-    var sistemOp = ArrayList<SistemaOperativo>()
-
+class ListarPacienteActivity : AppCompatActivity() {
+    var paciente = ArrayList<Paciente1>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_listar_so)
+        setContentView(R.layout.activity_listar_paciente)
         val layoutManager = LinearLayoutManager(this)
-        sistemOp = CrearSistemOperativo.sistemaOp
-        val adaptador = SistemaOperativoAdaptador(sistemOp)
+        paciente = CrearPaciente.pacientelista
+        val adaptador = SistemaOperativoAdaptador(paciente)
         recycler_view.layoutManager = layoutManager
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.adapter = adaptador
@@ -40,28 +37,28 @@ class ListarSOActivity : AppCompatActivity() {
 }
 
 
-class SistemaOperativo(var nombre:String,
-                       var versionApi:Int,
-                       var fechaLanzamaineto: Date,
-                       var pesoEnGigas:Double,
-                       var instalado:Boolean){}
+class Paciente1(var nombre:String,
+                var apellido:Int,
+                var fechaNacimiento: Date,
+                var hijos:Int,
+                var afiliado:Boolean){}
 
-class CrearSistemOperativo(){
+class CrearPaciente(){
     companion object {
 
-        var sistemaOp: ArrayList<SistemaOperativo> = ArrayList()
+        var pacientelista: ArrayList<Paciente1> = ArrayList()
 
         init {
-            sistemaOp.add(SistemaOperativo("algo1",1, Date(),1.1,true))
-            sistemaOp.add(SistemaOperativo("algo2",2, Date(),1.2,false))
+            pacientelista.add(Paciente1("algo1",1, Date(),1,true))
+            pacientelista.add(Paciente1("algo2",2, Date(),0,false))
         }
     }
 }
 
-class SistemaOperativoAdaptador(private val listaSistema: List<SistemaOperativo>): RecyclerView.Adapter<SistemaOperativoAdaptador.MyViewHolder>(),
+class SistemaOperativoAdaptador(private val listaSistema: List<Paciente1>): RecyclerView.Adapter<SistemaOperativoAdaptador.MyViewHolder>(),
         PopupMenu.OnMenuItemClickListener{
 
-        override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.getItemId()) {
             R.id.item_menu_aceptar -> {
                 Log.i("menu", "Editar")
@@ -87,7 +84,7 @@ class SistemaOperativoAdaptador(private val listaSistema: List<SistemaOperativo>
         var nombre: TextView
         var versionApi: TextView
         var pesoEnGigas: TextView
-        lateinit var sistema: SistemaOperativo
+        lateinit var sistema: Paciente1
         var botonDetalle: Button
         var layout: RelativeLayout
 
@@ -108,22 +105,22 @@ class SistemaOperativoAdaptador(private val listaSistema: List<SistemaOperativo>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.lista,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_recicler,parent,false)
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sistema = listaSistema[position]
         holder.nombre.setText(sistema.nombre)
-        val versApi = sistema.versionApi.toString()
+        val versApi = sistema.apellido.toString()
         holder.versionApi.setText(versApi)
-        val peso = sistema.pesoEnGigas.toString()
+        val peso = sistema.hijos.toString()
         holder.pesoEnGigas.setText(peso)
         holder.botonDetalle.setBackgroundColor(Color.GRAY)
 
         holder.botonDetalle.setOnClickListener{v ->
-            val intent = Intent(v.context,DetalleSOActivity::class.java)
-            startActivity(v.context, intent, null)
+            val intent = Intent(v.context,DetallePacienteActivity::class.java)
+            ContextCompat.startActivity(v.context, intent, null)
         }
 
         holder.layout.setOnClickListener{view ->
@@ -142,5 +139,3 @@ class SistemaOperativoAdaptador(private val listaSistema: List<SistemaOperativo>
     }
 
 }
-
-

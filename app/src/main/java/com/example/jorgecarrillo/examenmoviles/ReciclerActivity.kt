@@ -1,12 +1,12 @@
-package com.example.marcelo.mn_moviles_examen_1b
+package com.example.jorgecarrillo.examenmoviles
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
-class DetalleAppActivity : AppCompatActivity() {
+class ReciclerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detalle_app)
+        setContentView(R.layout.activity_recicler)
     }
 }

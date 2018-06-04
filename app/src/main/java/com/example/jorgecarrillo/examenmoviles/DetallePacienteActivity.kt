@@ -1,11 +1,10 @@
-package com.example.marcelo.mn_moviles_examen_1b
+package com.example.jorgecarrillo.examenmoviles
 
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -18,57 +17,53 @@ import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_crear_app.*
-import kotlinx.android.synthetic.main.activity_detalle_so.*
+import kotlinx.android.synthetic.main.activity_detalle_paciente.*
 import java.util.*
-import kotlin.collections.ArrayList
 
-class DetalleSOActivity : AppCompatActivity() {
-
-    var aplicaciones = ArrayList<Aplicacion>()
+class DetallePacienteActivity : AppCompatActivity() {
+    var medicina = ArrayList<Medicina>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detalle_so)
-
+        setContentView(R.layout.activity_detalle_paciente)
         val layoutManager = LinearLayoutManager(this)
-        aplicaciones = CrearAplicacion.aplicacion
-        val adaptador1 = AplicacionAdaptador(aplicaciones)
+        medicina = CrearMedicina.medicina
+        val adaptador1 = AplicacionAdaptador(medicina)
         recycler_view_app.layoutManager = layoutManager
         recycler_view_app.itemAnimator = DefaultItemAnimator()
         recycler_view_app.adapter = adaptador1
         adaptador1.notifyDataSetChanged()
 
-        boton_so_crear.setOnClickListener{view: View -> irAAtividadCrearApp()}
+        boton_paciente_crear.setOnClickListener{ view: View -> irAAtividadCrearMedicina()}
     }
 
-    fun irAAtividadCrearApp(){
-        var intent = Intent(this,CrearAppActivity::class.java)
+    fun irAAtividadCrearMedicina(){
+        var intent = Intent(this,CrearMedicinaActivity::class.java)
         startActivity(intent)
     }
 }
 
-class Aplicacion(var pesoEnGigas: String,
-                 var version:String,
+class Medicina(var gramosAConsumir: String,
+                 var composicion:String,
                  var nombre:String,
-                 var urlDescarga:String,
-                 var fechaLanzamiento:Date,
-                 var costo:String,
-                 var sistemaOperativoId:String){}
+                 var usadaPara:String,
+                 var fechaCaducidad: Date,
+                 var cantidadPastillas:String,
+                 var pacienteId:String){}
 
-class CrearAplicacion(){
+class CrearMedicina(){
 
     companion object {
 
-        var aplicacion: ArrayList<Aplicacion> = ArrayList()
+        var medicina: ArrayList<Medicina> = ArrayList()
 
         init {
-            aplicacion.add(Aplicacion("1.1","1","algo1","usrl1", Date(),"1.1","1"))
-            aplicacion.add(Aplicacion("1.2","2","algo2","usrl2",Date(),"2.1","2"))
+            medicina.add(Medicina("1.1","1","algo1","usrl1", Date(),"1.1","1"))
+            medicina.add(Medicina("1.2","2","algo2","usrl2", Date(),"2.1","2"))
         }
     }
 }
 
-class AplicacionAdaptador(private val listaAplicaciones: List<Aplicacion>): RecyclerView.Adapter<AplicacionAdaptador.MyViewHolder>(),
+class AplicacionAdaptador(private val listaAplicaciones: List<Medicina>): RecyclerView.Adapter<AplicacionAdaptador.MyViewHolder>(),
         PopupMenu.OnMenuItemClickListener{
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -94,35 +89,35 @@ class AplicacionAdaptador(private val listaAplicaciones: List<Aplicacion>): Recy
 
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view){
         var nombre: TextView
-        var costo: TextView
-        var urlDescarga: TextView
-        lateinit var aplicacion: Aplicacion
+        var cantidadAConsumir: TextView
+        var uso: TextView
+        lateinit var aplicacion: Medicina
         var botonDetalle: Button
         var layout: RelativeLayout
 
         init {
             nombre = view.findViewById(R.id.txtv_nombre) as TextView
-            costo = view.findViewById(R.id.txtv_detalle1) as TextView
-            urlDescarga = view.findViewById(R.id.txtv_detalle2) as TextView
+            cantidadAConsumir = view.findViewById(R.id.txtv_detalle1) as TextView
+            uso = view.findViewById(R.id.txtv_detalle2) as TextView
             botonDetalle =view.findViewById(R.id.boton_detalle) as Button
             layout = view.findViewById(R.id.relative_layout) as RelativeLayout
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.lista,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_recicler,parent,false)
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val aplicacion = listaAplicaciones[position]
         holder.nombre.setText(aplicacion.nombre)
-        holder.costo.setText(aplicacion.costo)
-        holder.urlDescarga.setText(aplicacion.urlDescarga)
+        holder.cantidadAConsumir.setText(aplicacion.cantidadPastillas)
+        holder.uso.setText(aplicacion.usadaPara)
         holder.botonDetalle.setBackgroundColor(Color.GRAY)
-        holder.botonDetalle.setOnClickListener{view:View ->
-            var intent = Intent(view.context,DetalleAppActivity::class.java)
-            startActivity(view.context, intent, null)
+        holder.botonDetalle.setOnClickListener{view: View ->
+            var intent = Intent(view.context,DetalleMedicinaActivity::class.java)
+            ContextCompat.startActivity(view.context, intent, null)
 
         }
 
@@ -139,5 +134,3 @@ class AplicacionAdaptador(private val listaAplicaciones: List<Aplicacion>): Recy
         return listaAplicaciones.size
     }
 }
-
-

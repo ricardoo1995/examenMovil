@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.marcelo.mn_moviles_examen_1b">
+    package="com.example.jorgecarrillo.examenmoviles">
 
     <application
         android:allowBackup="true"
@@ -16,11 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListarSOActivity" />
-        <activity android:name=".DetalleSOActivity" />
-        <activity android:name=".CrearSoActivity" />
-        <activity android:name=".CrearAppActivity" />
-        <activity android:name=".DetalleAppActivity"></activity>
+        <activity android:name=".CrearMedicinaActivity" />
+        <activity android:name=".CrearPacientActivity" />
+        <activity android:name=".DetalleMedicinaActivity" />
+        <activity android:name=".DetallePacienteActivity" />
+        <activity android:name=".ListarPacienteActivity" />
+        <activity android:name=".ReciclerActivity"></activity>
     </application>
 
 </manifest>

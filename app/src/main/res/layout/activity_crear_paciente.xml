@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CrearAppActivity">
-
+    tools:context=".CrearMedicinaActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +22,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Crear Aplicacion"
+                android:text="Crear Medicina"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,12 +34,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
-                android:text="Nombre"
+                android:text="Nombre Medicina"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_descripcion_app" />
 
             <EditText
-                android:id="@+id/edit_nombre_app"
+                android:id="@+id/edit_nombre_medicina"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_descripcion_app"
@@ -56,12 +55,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Peso en Gigas"
+                android:text="Gramos Ingerir"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_nombre_app" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_nombre_medicina" />
 
             <EditText
-                android:id="@+id/edit_peso_app"
+                android:id="@+id/edit_gramos_ingerir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -76,12 +75,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Version"
+                android:text="Composicion"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_peso_app" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_gramos_ingerir" />
 
             <EditText
-                android:id="@+id/edit_version"
+                android:id="@+id/edit_composion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -96,12 +95,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Url Descarga"
+                android:text="Usado Para"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_version" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_composion" />
 
             <EditText
-                android:id="@+id/edit_url"
+                android:id="@+id/edit_usadopara"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -116,15 +115,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Fecha Lanzamiento"
+                android:text="Fecha Caducidad"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_url" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_usadopara" />
 
             <EditText
-                android:id="@+id/edit_fecha_app"
+                android:id="@+id/edit_fecha_caducidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_version_api"
+                android:layout_below="@+id/edit_apellido"
                 android:layout_marginStart="16dp"
                 android:ems="10"
                 android:inputType="date"
@@ -137,15 +136,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Costo"
+                android:text="Numero Pastillas"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_fecha" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_fechaNacimiento" />
 
             <EditText
-                android:id="@+id/edit_costo"
+                android:id="@+id/edit_numeroPastillas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_fecha"
+                android:layout_below="@+id/edit_fechaNacimiento"
                 android:layout_marginStart="16dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
@@ -158,15 +157,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Sistema Operativo Id"
+                android:text="Identificador Paciente"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_costo" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_numeroPastillas" />
 
             <EditText
-                android:id="@+id/edit_so_id"
+                android:id="@+id/edit_paciente_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_fecha"
+                android:layout_below="@+id/edit_fechaNacimiento"
                 android:layout_marginStart="16dp"
                 android:ems="10"
                 android:inputType="number"
@@ -174,7 +173,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
             <Button
-                android:id="@+id/boton_guardar_app"
+                android:id="@+id/boton_guardar_medicina"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -186,5 +185,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/checkBox" />
         </LinearLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>
